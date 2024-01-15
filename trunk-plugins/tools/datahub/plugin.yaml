@@ -1,0 +1,8 @@
+version: 0.1
+tools:
+  definitions:
+    - name: acryl-datahub
+      runtime: python
+      package: acryl-datahub[dbt]
+      shims: [datahub]
+      known_good_version: 0.12.1.3

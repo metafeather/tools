@@ -1,0 +1,19 @@
+version: 0.1
+downloads:
+  - name: changie
+    downloads:
+      - os:
+          macos: darwin
+          linux: linux
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/miniscruff/changie/releases/download/v${version}/changie_${version}_${os}_${cpu}.tar.gz
+tools:
+  definitions:
+    - name: changie
+      download: changie
+      known_good_version: 1.18.0
+      shims:
+        - name: changie
+          target: changie

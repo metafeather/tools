@@ -1,0 +1,11 @@
+version: 0.1
+tools:
+  definitions:
+    - name: dagster
+      runtime: python
+      package: dagster-dbt
+      extra_packages:
+        - dagster-webserver==1.6.0
+        - dbt-duckdb==1.7.0
+      shims: [dagster]
+      known_good_version: 0.22.0

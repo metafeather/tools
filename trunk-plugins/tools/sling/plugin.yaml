@@ -1,0 +1,20 @@
+version: 0.1
+downloads:
+  - name: sling
+    # executable: true
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+          # No windows release
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/slingdata-io/sling-cli/releases/download/v${version}/sling_${os}_${cpu}.tar.gz
+        # strip_components: 1
+tools:
+  definitions:
+    - name: sling
+      download: sling
+      known_good_version: 1.0.68
+      shims: [sling]

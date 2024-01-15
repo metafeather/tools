@@ -1,0 +1,30 @@
+version: 0.1
+downloads:
+  - name: hugo
+    downloads:
+      - os:
+          macos: darwin
+        cpu:
+          x86_64: universal
+          arm_64: universal
+        url: https://github.com/gohugoio/hugo/releases/download/v${version}/hugo_extended_${version}_${os}-${cpu}.tar.gz
+      - os:
+          linux: linux
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/gohugoio/hugo/releases/download/v${version}/hugo_extended_${version}_${os}-${cpu}.tar.gz
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/gohugoio/hugo/releases/download/v${version}/hugo_extended_${version}_${os}-${cpu}.zip
+tools:
+  definitions:
+    - name: hugo
+      download: hugo
+      known_good_version: 0.121.2
+      shims:
+        - name: hugo
+          target: hugo

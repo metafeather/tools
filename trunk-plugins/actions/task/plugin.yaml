@@ -1,0 +1,32 @@
+version: 0.1
+actions:
+  output_level: verbose
+  definitions:
+    - id: task
+      display_name: task
+      description: Run a direnv + task from ${workspace}/Taskfile.yaml
+      run: direnv exec . task ${@}
+      run_from: ${workspace}
+      interactive: optional
+      environment:
+        - name: PATH
+          list:
+            - ${workspace}/.trunk/tools
+        - name: TRUNK_ACTION_WORKSPACE
+          list:
+            - ${workspace}
+        - name: TRUNK_ACTION_ENV_PWD
+          list:
+            - ${env.PWD}
+        - name: TRUNK_ACTION_CWD
+          list:
+            - ${cwd}
+        - name: TRUNK_ACTION_ARGS
+          list:
+            - ${@}
+        # - name: TRUNK_ACTION_TARGET
+        #   list:
+        #     - ${target}
+        # - name: TRUNK_ACTION_HOOK
+        #   list:
+        #     - ${hook}
