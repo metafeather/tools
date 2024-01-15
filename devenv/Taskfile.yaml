@@ -1,0 +1,8 @@
+version: 3
+
+tasks:
+  env: env | sort
+
+  init:
+    - go mod init github.com/metafeather/tools/cli
+    - cobra-cli init --viper --author "Liam Clancy (metafeather) github@metafeather.com" --license apache
