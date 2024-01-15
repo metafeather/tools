@@ -9,6 +9,10 @@ plugins:
     - id: trunk
       ref: v1.4.2
       uri: https://github.com/trunk-io/plugins
+    - id: metafeather
+      # ref: trunk-plugins/v1.0.0
+      # uri: https://github.com/metafeather.net/tools/trunk-plugins
+      local: ./trunk-plugins
 # Many linters and tools depend on runtimes - configure them here. (https://docs.trunk.io/runtimes)
 runtimes:
   enabled:
@@ -41,6 +45,7 @@ actions:
     - trunk-upgrade-available
 tools:
   enabled:
+    - go-task@3.33.1
     - gitleaks@8.18.1
     - gt@1.0.14
     - direnv@2.33.0
