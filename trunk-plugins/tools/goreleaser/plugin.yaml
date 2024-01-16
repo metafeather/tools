@@ -1,0 +1,23 @@
+version: 0.1
+downloads:
+  - name: goreleaser
+    downloads:
+      - os:
+          linux: Linux
+          macos: Darwin
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/goreleaser/goreleaser/releases/download/v${version}/goreleaser_${os}_${cpu}.tar.gz
+      - os:
+          windows: Windows
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/goreleaser/goreleaser/releases/download/v${version}/goreleaser_${os}_${cpu}.zip
+tools:
+  definitions:
+    - name: goreleaser
+      download: goreleaser
+      known_good_version: 1.23.0
+      shims: [goreleaser]

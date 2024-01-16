@@ -1,0 +1,43 @@
+version: 0.1
+actions:
+  output_level: verbose
+  definitions:
+    - id: debug
+      display_name: Debug Trunk Actions
+      description: Debug Trunk Actions
+      # run: env | sort
+      # run: task env
+      # run: ${workspace}/.trunk/tools/task env
+      # run: echo "$@ ${args}"
+      # run: echo "${@} ${1}"
+      # run: echo "${env}"
+      # run: echo "${env.PWD}"
+      # run: echo "${home}"
+      # run: echo "${plugin}"
+      # run: echo "${linter}"
+      # run: echo "${hook}"
+      # run: echo "${hook_stdin_path}"
+      # run: echo "${workspace}"
+      # run: echo "${target}"
+      # run: echo "${CLI_ARGS}"
+      # run: echo "{{.CLI_ARGS}}"
+      # runtime: python
+      run: python3 ${cwd}/env.py "${@} ${target}" # {cwd} resolves to current directory containing this plugin.yaml file
+      # run_from: ${cwd}
+      # run_ from: ${root_or_parent_with(.dbt_project.yml)}
+      # packages_file: requirements.txt
+      triggers:
+        - files: ["**/dbt_project.yml"]
+      # interactive: true
+      environment:
+        - name: PATH
+          list:
+            - ${workspace}/.trunk/tools
+        - name: WHEREAMI
+          list:
+            - ${cwd}
+            - ${env.PWD}
+            # - ${env.HERE}
+        - name: ARGS
+          list:
+            - ${@}

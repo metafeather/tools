@@ -1,0 +1,28 @@
+version: 0.1
+downloads:
+  - name: duckdb
+    executable: true
+    downloads:
+      - os:
+          macos: osx
+        cpu:
+          x86_64: universal
+          arm_64: universal
+        url: https://github.com/duckdb/duckdb/releases/download/v${version}/duckdb_cli-${os}-${cpu}.zip
+      - os:
+          linux: linux
+        cpu:
+          x86_64: amd64
+          arm_64: aarch64
+        url: https://github.com/duckdb/duckdb/releases/download/v${version}/duckdb_cli-${os}-${cpu}.zip
+      - os:
+          windows: windows
+        cpu:
+          x86_64: amd64
+        url: https://github.com/duckdb/duckdb/releases/download/v${version}/duckdb_cli-${os}-${cpu}.zip
+tools:
+  definitions:
+    - name: duckdb
+      download: duckdb
+      known_good_version: 0.9.2
+      shims: [duckdb]

@@ -3,6 +3,9 @@
 version: 0.1
 cli:
   version: 1.19.0
+  # NOTE(metafeather): adds .trunk/tools to $PATH
+  shell_hooks:
+    enforce: true
 # Trunk provides extensibility via plugins. (https://docs.trunk.io/plugins)
 plugins:
   sources:
@@ -10,9 +13,9 @@ plugins:
       ref: v1.4.2
       uri: https://github.com/trunk-io/plugins
     - id: metafeather
-      # ref: trunk-plugins/v1.0.0
-      # uri: https://github.com/metafeather.net/tools/trunk-plugins
-      local: ./trunk-plugins
+      # ref: trunk-plugins/v1.0.1
+      # uri: https://github.com/metafeather.net/tools
+      local: .
 # Many linters and tools depend on runtimes - configure them here. (https://docs.trunk.io/runtimes)
 runtimes:
   enabled:
@@ -22,6 +25,8 @@ runtimes:
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
   enabled:
+    - gofmt@1.20.4
+    - golangci-lint@1.55.2
     - taplo@0.8.1
     - bandit@1.7.6
     - black@23.12.1
@@ -31,7 +36,7 @@ lint:
     - ruff@0.1.13
     - shellcheck@0.9.0
     - shfmt@3.6.0
-    - checkov@3.1.60
+    - checkov@3.1.61
     - git-diff-check
     - prettier@3.2.2
     - trivy@0.48.3
@@ -39,13 +44,20 @@ lint:
     - yamllint@1.33.0
 actions:
   enabled:
+    - task
     - trunk-announce
     - trunk-check-pre-push
     - trunk-fmt-pre-commit
     - trunk-upgrade-available
 tools:
+  runtimes:
+    - go
   enabled:
+    - goreleaser@1.23.0
+    - changie@1.18.0
+    - hugo@0.121.2
+    - seaweedfs@3.61
     - go-task@3.33.1
     - gitleaks@8.18.1
-    - gt@1.0.14
+    - gt@1.1.1
     - direnv@2.33.0

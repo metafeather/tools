@@ -1,0 +1,18 @@
+version: 0.1
+tools:
+  definitions:
+    - name: pipx
+      runtime: python
+      package: pipx
+      shims: [pipx]
+      known_good_version: 1.4.1
+    - name: pip-tools
+      # ref: https://suyojtamrakar.medium.com/managing-your-requirements-txt-with-pip-tools-in-python-8d07d9dfa464
+      runtime: python
+      package: pip-tools
+      shims:
+        - name: pip-compile
+          target: pip-compile
+        - name: pip-sync
+          target: pip-sync
+      known_good_version: 7.3.0

@@ -1,0 +1,31 @@
+version: 0.1
+tools:
+  definitions:
+    - name: dbt
+      runtime: python
+      package: dbt-core
+      extra_packages:
+        - dbt-duckdb==1.7.0
+        - dbt-postgres==1.7.4
+        - dbt-snowflake==1.7.1
+      shims: [dbt]
+      known_good_version: 1.7.4
+    - name: dbt-dremio
+      runtime: python
+      package: dbt-dremio
+      shims:
+        - name: dbt-dremio
+          target: dbt
+      known_good_version: 1.5.0
+    - name: dbt-ibis
+      runtime: python
+      package: dbt-ibis
+      extra_packages:
+        # TODO(metafeather): Ibis postgres backend requires psycopg2 (which
+        # requires pg_config on host) but duckdb can access tables without it
+        # ref: https://duckdb.org/docs/extensions/postgres
+        # - ibis-framework[duckdb,postgres,snowflake]==7.2.0
+        - ibis-framework[duckdb,snowflake]==7.2.0
+      shims: [dbt-ibis]
+      known_good_version: 0.8.0
+    # - name: dbt-sqlfluff
