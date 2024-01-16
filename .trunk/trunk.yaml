@@ -53,6 +53,7 @@ tools:
   runtimes:
     - go
   enabled:
+    - gh@2.42.1
     - goreleaser@1.23.0
     - changie@1.18.0
     - hugo@0.121.2
