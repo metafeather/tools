@@ -15,8 +15,14 @@ limitations under the License.
 */
 package main
 
-import "github.com/metafeather/tools/devenv/cmd"
+import (
+	"time"
+
+	"github.com/carlmjohnson/versioninfo"
+	"github.com/metafeather/tools/devenv/cmd"
+)
 
 func main() {
+	cmd.SetVersionInfo(versioninfo.Version, versioninfo.Revision, versioninfo.LastCommit.Format(time.RFC3339))
 	cmd.Execute()
 }

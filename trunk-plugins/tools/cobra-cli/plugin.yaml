@@ -1,0 +1,8 @@
+version: 0.1
+tools:
+  definitions:
+    - name: cobra-cli
+      runtime: go
+      package: github.com/spf13/cobra-cli
+      shims: [cobra-cli]
+      known_good_version: 1.3.0
