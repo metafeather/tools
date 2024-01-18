@@ -1,4 +1,0 @@
-project: devenv
-kind: Changed
-body: Build with goreleaser, release with Homebrew
-time: 2024-01-18T20:24:38.933209Z
