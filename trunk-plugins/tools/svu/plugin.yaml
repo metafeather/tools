@@ -1,0 +1,23 @@
+version: 0.1
+downloads:
+  - name: svu
+    downloads:
+      - os:
+          linux: linux
+          windows: windows
+        cpu:
+          x86_64: x86_64
+          arm_64: arm64
+        url: https://github.com/caarlos0/svu/releases/download/v${version}/svu_${version}_${os}_${cpu}.tar.gz
+      - os:
+          macos: darwin
+        cpu:
+          x86_64: all
+          arm_64: all
+        url: https://github.com/caarlos0/svu/releases/download/v${version}/svu_${version}_${os}_${cpu}.tar.gz
+tools:
+  definitions:
+    - name: svu
+      download: svu
+      known_good_version: 1.12.0
+      shims: [svu]
