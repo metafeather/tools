@@ -24,8 +24,8 @@ tasks:
     - goreleaser build --clean --snapshot --single-target
 
   changelog:
-    - changie --project="devenv" batch auto
-    - changie merge
+    - changie --project="devenv" batch auto || true
+    - changie merge || true
     - TOOL_CURRENT_TAG=$(changie --project="devenv" latest); git tag -f -a "${TOOL_CURRENT_TAG##devenv/}-devenv" -m "Devenv release ${TOOL_CURRENT_TAG}"
 
   prerelease:
