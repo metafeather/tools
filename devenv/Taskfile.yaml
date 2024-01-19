@@ -46,7 +46,7 @@ tasks:
     cmds:
       - 'echo "Creating prerelease: ${GORELEASER_CURRENT_TAG} (from {{.TOOL_CURRENT_TAG}})"'
       - git tag -f -a "${GORELEASER_CURRENT_TAG}" -m "Devenv release {{.TOOL_CURRENT_TAG}}"
-      # - goreleaser release --clean --skip=validate --release-notes=".changes/{{.TOOL_CURRENT_TAG}}.md"
+      - goreleaser release --clean --skip=validate --release-notes=".changes/{{.TOOL_CURRENT_TAG}}.md"
 
   release:
     # Ammend to use prefixed tag for release
