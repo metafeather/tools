@@ -24,17 +24,19 @@ tasks:
     - goreleaser build --clean --snapshot --single-target
 
   changelog:
-    - changie --project="devenv" batch auto || true
-    - changie merge || true
-    - TOOL_CURRENT_TAG=$(changie --project="devenv" latest); git tag -f -a "${TOOL_CURRENT_TAG##devenv/}-devenv" -m "Devenv release ${TOOL_CURRENT_TAG}"
+    - mkdir -p .changes/unreleased
+    - changie --project="devenv" batch auto 2>/dev/null || true
+    - changie merge
 
   prerelease:
     # NOTE(metafeather): goreleaser needs pro license to use prefixed tags so
     # prefix/v1.2.3 --> v1.2.3-prefix.1+123 during build/prerelease
     vars:
       TOOL_CURRENT_TAG:
-        # sh: changie next auto
-        sh: changie --project="devenv" latest
+        sh: |
+          TOOL_CURRENT_TAG=$(changie --project="devenv" latest) 
+          TAG_RESULT=$(git tag -f -a "${TOOL_CURRENT_TAG##devenv/}-devenv" -m "Devenv release ${TOOL_CURRENT_TAG}")
+          echo "${TOOL_CURRENT_TAG}"
       TOOL_CURRENT_VERSION: '{{trimPrefix "devenv/" .TOOL_CURRENT_TAG}}'
     env:
       GORELEASER_CURRENT_TAG:
@@ -42,9 +44,9 @@ tasks:
         sh: svu --pattern="*-devenv*" --build="goreleaser" prerelease --pre-release="devenv"
       # GORELEASER_PREVIOUS_TAG:
     cmds:
-      - 'echo "Creating prerelease: ${GORELEASER_CURRENT_TAG}"'
+      - 'echo "Creating prerelease: ${GORELEASER_CURRENT_TAG} (from {{.TOOL_CURRENT_TAG}})"'
       - git tag -f -a "${GORELEASER_CURRENT_TAG}" -m "Devenv release {{.TOOL_CURRENT_TAG}}"
-      - goreleaser release --clean --skip=validate --release-notes=".changes/{{.TOOL_CURRENT_TAG}}.md"
+      # - goreleaser release --clean --skip=validate --release-notes=".changes/{{.TOOL_CURRENT_TAG}}.md"
 
   release:
     # Ammend to use prefixed tag for release
