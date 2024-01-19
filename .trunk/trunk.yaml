@@ -62,5 +62,4 @@ tools:
     - seaweedfs@3.61
     - go-task@3.33.1
     - gitleaks@8.18.1
-    - gt@1.1.1
     - direnv@2.33.0
