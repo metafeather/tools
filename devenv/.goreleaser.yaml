@@ -71,11 +71,8 @@ brews:
       - name: direnv
       - name: go-task
       - name: eget
-      # - name: caddy
       # - name: pyenv
       # - name: pyenv-virtualenv
-      # - name: starship
-      # - name: cask: trunk-io
     ids:
       - latest_release
     folder: Formula

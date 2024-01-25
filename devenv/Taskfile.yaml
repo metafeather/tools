@@ -3,25 +3,26 @@ version: 3
 dotenv:
   - .env
 
-vars:
-  TOOL_NAME: devenv
-  # NOTE(metafeather): goreleaser needs pro license to use prefixed tags so
-  # prefix/v1.2.3 --> v1.2.3-prefix.1+123 during build/release
-  TAG_PREFIX: "{{.TOOL_NAME}}"
-  TAG_PREFIX_SEPARATOR: /v
-  TAG_PREFIX_FULL: "{{.TAG_PREFIX}}{{.TAG_PREFIX_SEPARATOR}}"
-
 tasks:
-  env: env | sort
+  default: task --list-all
+
+  env:
+    - env | sort
 
   init:
     - go mod init github.com/metafeather/tools/devenv
-    - cobra-cli init --viper --author "Liam Clancy (metafeather) github@metafeather.com" --license apache
     - changie init
     - goreleaser init
+    - cobra-cli init --viper --author "Liam Clancy (metafeather) github@metafeather.com" --license apache
 
   build:
     - goreleaser build --clean --snapshot --single-target
+
+  run:
+    - go run main.go {{.CLI_ARGS}}
+
+  change:
+    - changie --projects="devenv" new
 
   changelog:
     - mkdir -p .changes/unreleased
@@ -48,6 +49,10 @@ tasks:
       - git tag -f -a "${GORELEASER_CURRENT_TAG}" -m "Devenv release {{.TOOL_CURRENT_TAG}}"
       - goreleaser release --clean --skip=validate --release-notes=".changes/{{.TOOL_CURRENT_TAG}}.md"
 
+  rc:
+    - brew update
+    - brew upgrade metafeather/tools/devenv@1.0.0-rc
+
   release:
     # Ammend to use prefixed tag for release
     vars:
@@ -63,3 +68,4 @@ tasks:
       - git push origin refs/tags/{{.TOOL_CURRENT_TAG}}
       # ref: https://cli.github.com/manual/gh_release_edit
       - gh release edit "${GORELEASER_CURRENT_TAG}" --tag="{{.TOOL_CURRENT_TAG}}" --title="{{.TOOL_CURRENT_TAG}}" --latest
+      - echo "Now edit the \`devenv\` version number in the Formula"
