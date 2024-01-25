@@ -15,6 +15,7 @@ import (
 
 var (
 	debug    bool
+	ci       bool
 	global   bool
 	cfgFile  string
 	cacheDir string
@@ -67,6 +68,8 @@ func init() {
 	// will be global for your application.
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "d", false, "display debug output. (default: false)")
 	_ = viper.BindPFlag("debug", rootCmd.PersistentFlags().Lookup("debug"))
+	rootCmd.PersistentFlags().BoolVar(&ci, "ci", false, "compatiblity with ci runners. (default: false)")
+	_ = viper.BindPFlag("ci", rootCmd.PersistentFlags().Lookup("ci"))
 
 	rootCmd.PersistentFlags().BoolVarP(&global, "global", "g", false, "run global tools (default: false)")
 	_ = viper.BindPFlag("global", rootCmd.PersistentFlags().Lookup("global"))

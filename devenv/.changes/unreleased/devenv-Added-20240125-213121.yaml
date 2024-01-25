@@ -1,0 +1,4 @@
+project: devenv
+kind: Added
+body: Add `doctor` command and debugging
+time: 2024-01-25T21:31:21.493025Z
