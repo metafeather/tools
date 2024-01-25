@@ -1,0 +1,30 @@
+version: 3
+
+includes:
+  global:
+    taskfile: ./global
+    dir: ./global
+    optional: true
+  plugins:
+    taskfile: ${HOME}/.local/share/devenv/plugins
+    dir: ${HOME}/.local/share/devenv/plugins
+    optional: true
+  user:
+    taskfile: ${HOME}/.config/devenv
+    dir: ${HOME}/.config/devenv
+    optional: true
+  home:
+    taskfile: ${HOME}
+    dir: ${HOME}
+    optional: true
+
+tasks:
+  default:
+    cmds:
+      - task --list-all
+    dir: .
+
+  env:
+    cmds:
+      - env | sort
+    dir: "{{.USER_WORKING_DIR}}"

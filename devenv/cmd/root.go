@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"embed"
 	"fmt"
 	"os"
+	"path"
 
 	"github.com/adrg/xdg"
 	"github.com/elewis787/boa"
@@ -11,7 +13,13 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
+var (
+	debug    bool
+	global   bool
+	cfgFile  string
+	cacheDir string
+	StdlibFS embed.FS
+)
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -60,9 +68,13 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "d", false, "display debug output. (default: false)")
 	_ = viper.BindPFlag("debug", rootCmd.PersistentFlags().Lookup("debug"))
 
+	rootCmd.PersistentFlags().BoolVarP(&global, "global", "g", false, "run global tools (default: false)")
+	_ = viper.BindPFlag("global", rootCmd.PersistentFlags().Lookup("global"))
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", path.Join(xdg.ConfigHome, "devenv", "config.yaml"), "config file (default: $XDG_CONFIG_HOME/devenv/config.yaml)")
 	// rootCmd.MarkPersistentFlagRequired("config")
 	_ = viper.BindPFlag("config", rootCmd.PersistentFlags().Lookup("config"))
+	rootCmd.PersistentFlags().StringVarP(&cacheDir, "cache-dir", "l", path.Join(xdg.CacheHome, "devenv"), "cache dir (default: $XDG_CACHE_HOME/devenv)")
+	_ = viper.BindPFlag("cache-dir", rootCmd.PersistentFlags().Lookup("cache-dir"))
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.

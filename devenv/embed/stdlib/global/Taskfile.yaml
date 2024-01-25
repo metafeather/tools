@@ -1,0 +1,77 @@
+version: 3
+
+tasks:
+  default:
+    cmds:
+      - task --list-all
+    dir: .
+
+  env:
+    cmds:
+      - env | sort
+    dir: "{{.USER_WORKING_DIR}}"
+
+  init:
+    cmds:
+      - echo "==> Devenv inited"
+      - echo "Check tools and environment dependencies with \`devenv doctor\`"
+    dir: "{{.USER_WORKING_DIR}}"
+
+  deinit:
+    cmds:
+      # TODO(metafeather): Use cmd with $XDG_CACHE_HOME
+      - rm -Rf /Users/${USER}/Library/Caches/devenv
+    dir: "{{.USER_WORKING_DIR}}"
+
+  doctor:
+    env:
+      VSCODE_EXTENSIONS:
+        sh: command -v code >/dev/null && code --list-extensions || echo ""
+    cmds:
+      - echo "Checking tools and environment dependencies..."
+      - echo ""
+      - echo "==> Required:"
+      - 'command -v brew >/dev/null && echo "brew" || echo "brew (missing) see: https://brew.sh/"'
+      - 'command -v direnv >/dev/null && echo "direnv" || echo "direnv (missing) see: https://direnv.net/"'
+      - 'command -v task >/dev/null && echo "go-task" || echo "go-task (missing) see: https://taskfile.dev/"'
+      - 'command -v eget >/dev/null && echo "eget" || echo "eget (missing) see: https://github.com/zyedidia/eget"'
+      - 'command -v trunk >/dev/null && echo "trunk-io" || echo "trunk-io (missing) see: https://trunk.io/"'
+      - echo ""
+      - echo "==> Recommended:"
+      - 'command -v git >/dev/null && echo "git" || echo "git (missing) see: https://git-scm.com/"'
+      - 'command -v gh >/dev/null && echo "github cli [gh]" || echo "github cli [gh] (missing) see: https://cli.github.com/"'
+      - 'command -v aws >/dev/null && echo "awscli [aws]" || echo "awscli (missing) see: https://aws.amazon.com/cli/"'
+      - 'command -v colima >/dev/null && echo "colima" || echo "colima (missing) see: https://github.com/abiosoft/colima"'
+      - 'command -v docker >/dev/null && echo "docker cli" || echo "docker cli (missing) see: https://www.docker.com/products/cli/"'
+      - 'command -v starship >/dev/null && echo "starship" || echo "starship (missing) see: https://starship.rs/"'
+      - 'command -v gt >/dev/null && echo "graphite [gt]" || echo "graphite [gt] (missing) see: https://graphite.dev/"'
+      - 'command -v code >/dev/null && echo "visual-studio-code" || echo "visual-studio-code (missing) see: https://code.visualstudio.com/"'
+      - '[[ "${VSCODE_EXTENSIONS}" == *"mkhl.direnv"* ]] && echo "- ext:mkhl.direnv" || echo "- ext:mkhl.direnv (missing)"'
+      - '[[ "${VSCODE_EXTENSIONS}" == *"task.vscode-task"* ]] && echo "- ext:task.vscode-task" || echo "- ext:task.vscode-task (missing)"'
+      - '[[ "${VSCODE_EXTENSIONS}" == *"trunk.io"* ]] && echo "- ext:trunk.io" || echo "- ext:trunk.io (missing) see: "'
+      - '[[ "${VSCODE_EXTENSIONS}" == *"Graphite.gti-vscode"* ]] && echo "- ext:Graphite.gti-vscode" || echo "- ext:Graphite.gti-vscode (missing)"'
+      - echo ""
+      - echo "==> Environment:"
+      - '! test -z "${GITHUB_TOKEN}" && echo "GITHUB_TOKEN" || echo "GITHUB_TOKEN (missing) see: https://docs.github.com/en/actions/security-guides/automatic-token-authentication"'
+      - '! test -z "${EGET_BIN}" && echo "EGET_BIN" || echo "EGET_BIN (missing) see: https://github.com/zyedidia/eget#usage"'
+      - '! test -z "${PIP_REQUIRE_VIRTUALENV}" && echo "PIP_REQUIRE_VIRTUALENV" || echo "PIP_REQUIRE_VIRTUALENV (missing) see: https://docs.python-guide.org/dev/pip-virtualenv/"'
+      - echo ""
+      - echo "==> Summary"
+      - echo "Missing tools?"
+      - echo "Generally these can be installed using homebrew"
+      - echo ""
+      - |
+        if ! command -v trunk >/dev/null ; then
+          echo "Devenv can also manage tools in git repos using https://docs.trunk.io/check/"
+          echo "It is highly recommended to install this with:"
+          echo " \`brew install trunk-io\`"
+          echo ""
+        fi
+
+      # - |
+      #   if [[ ! -z "$(git rev-parse --git-dir 2>/dev/null)" ]]; then
+      #     echo "In a git repository? Try \`devenv doctor --repo\`"
+      #     echo ""
+      #   fi
+    dir: "{{.USER_WORKING_DIR}}"
+    silent: true

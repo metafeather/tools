@@ -16,13 +16,20 @@ limitations under the License.
 package main
 
 import (
+	"embed"
 	"time"
 
 	"github.com/carlmjohnson/versioninfo"
 	"github.com/metafeather/tools/devenv/cmd"
 )
 
+//go:embed all:embed/stdlib
+var stdlib embed.FS
+
 func main() {
+	// Share embedded stdlib filesystem with all commands
+	cmd.StdlibFS = stdlib
+
 	cmd.SetVersionInfo(versioninfo.Version, versioninfo.Revision, versioninfo.LastCommit.Format(time.RFC3339))
 	cmd.Execute()
 }

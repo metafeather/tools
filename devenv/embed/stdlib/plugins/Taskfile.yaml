@@ -1,0 +1,12 @@
+version: 3
+
+tasks:
+  default:
+    cmds:
+      - task --list-all
+    dir: .
+
+  env:
+    cmds:
+      - env | sort
+    dir: "{{.USER_WORKING_DIR}}"
