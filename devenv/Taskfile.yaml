@@ -15,6 +15,7 @@ tasks:
     - goreleaser init
     - cobra-cli init --viper --author "Liam Clancy (metafeather) github@metafeather.com" --license apache
     - cobra-cli add init
+    - cobra-cli add run
 
   build:
     - goreleaser build --clean --snapshot --single-target
