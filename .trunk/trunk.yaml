@@ -4,15 +4,17 @@ version: 0.1
 cli:
   version: 1.19.0
   # NOTE(metafeather): adds .trunk/tools to $PATH
-  shell_hooks:
-    enforce: true
+  # shell_hooks:
+  # enforce: true
+  # path_add:
+  #   - "${workspace}/tools"
 # Trunk provides extensibility via plugins. (https://docs.trunk.io/plugins)
 plugins:
   sources:
     - id: trunk
       ref: v1.4.2
       uri: https://github.com/trunk-io/plugins
-    - id: metafeather
+    - id: devenv
       # ref: trunk-plugins/v1.0.1
       # uri: https://github.com/metafeather.net/tools
       local: .
@@ -28,19 +30,19 @@ lint:
     - gofmt@1.20.4
     - golangci-lint@1.55.2
     - taplo@0.8.1
-    - bandit@1.7.6
+    - bandit@1.7.7
     - black@23.12.1
     - isort@5.13.2
     - markdownlint@0.38.0
     - osv-scanner@1.6.1
-    - ruff@0.1.13
+    - ruff@0.1.14
     - shellcheck@0.9.0
     - shfmt@3.6.0
-    - checkov@3.1.65
+    - checkov@3.1.70
     - git-diff-check
     - prettier@3.2.4
     - trivy@0.48.3
-    - trufflehog@3.63.10
+    - trufflehog@3.64.0
     - yamllint@1.33.0
 actions:
   enabled:

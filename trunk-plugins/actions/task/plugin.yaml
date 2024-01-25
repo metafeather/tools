@@ -5,6 +5,8 @@ actions:
     - id: task
       display_name: task
       description: Run a direnv + task from ${workspace}/Taskfile.yaml
+      # run: env | sort
+      # run: task env
       run: direnv exec . task ${@}
       run_from: ${workspace}
       interactive: optional
