@@ -50,6 +50,7 @@ tasks:
       - '[[ "${VSCODE_EXTENSIONS}" == *"task.vscode-task"* ]] && echo "- ext:task.vscode-task" || echo "- ext:task.vscode-task (missing)"'
       - '[[ "${VSCODE_EXTENSIONS}" == *"trunk.io"* ]] && echo "- ext:trunk.io" || echo "- ext:trunk.io (missing) see: "'
       - '[[ "${VSCODE_EXTENSIONS}" == *"Graphite.gti-vscode"* ]] && echo "- ext:Graphite.gti-vscode" || echo "- ext:Graphite.gti-vscode (missing)"'
+      - '[[ "${VSCODE_EXTENSIONS}" == *"sourcegraph.cody-ai"* ]] && echo "- ext:sourcegraph.cody-ai" || echo "- ext:sourcegraph.cody-ai (missing)"'
       - echo ""
       - echo "==> Environment:"
       - '! test -z "${GITHUB_TOKEN}" && echo "GITHUB_TOKEN" || echo "GITHUB_TOKEN (missing) see: https://docs.github.com/en/actions/security-guides/automatic-token-authentication"'
