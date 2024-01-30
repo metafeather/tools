@@ -5,11 +5,11 @@ tools:
       runtime: python
       package: dbt-core
       extra_packages:
-        - dbt-duckdb==1.7.0
-        - dbt-postgres==1.7.4
+        - dbt-duckdb==1.7.1
+        - dbt-postgres==1.7.6
         - dbt-snowflake==1.7.1
       shims: [dbt]
-      known_good_version: 1.7.4
+      known_good_version: 1.7.6
     - name: dbt-dremio
       runtime: python
       package: dbt-dremio

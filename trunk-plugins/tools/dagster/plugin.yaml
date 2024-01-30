@@ -5,7 +5,11 @@ tools:
       runtime: python
       package: dagster-dbt
       extra_packages:
-        - dagster-webserver==1.6.0
-        - dbt-duckdb==1.7.0
-      shims: [dagster]
+        # - dagster
+        # - dbt-core
+        - dagster-webserver==1.6.2
+        - dbt-duckdb==1.7.1
+      shims:
+        - dagster
+        - dagster-dbt
       known_good_version: 0.22.0
