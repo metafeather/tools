@@ -57,7 +57,7 @@ tasks:
 
   rc:
     - brew update
-    - brew upgrade metafeather/tools/devenv@1.0.0-rc
+    - brew upgrade metafeather/tools/devenv@1.2.0-rc
 
   release:
     # Ammend to use prefixed tag for release
