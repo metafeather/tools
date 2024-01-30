@@ -76,3 +76,18 @@ tasks:
       #   fi
     dir: "{{.USER_WORKING_DIR}}"
     silent: true
+
+  preview:
+    cmds:
+      - |
+        if [[ ! -z "$(git -C {{.USER_WORKING_DIR}} rev-parse --git-dir 2>/dev/null)" ]]; then
+          REPO_ROOT=$(git -C {{.USER_WORKING_DIR}} rev-parse --show-toplevel)
+          PROJECT_NAME=$(git remote get-url origin | xargs basename -s .git)
+          echo "Preview: ${REPO_ROOT}"
+          hugo serve --disableFastRender --contentDir="${REPO_ROOT}" --config="hugo.yaml,${REPO_ROOT}/hugo.yaml"
+        else
+          ech "Preview needs to run within a git repository"
+        fi
+    # dir: "{{.USER_WORKING_DIR}}"
+    dir: ../../publish
+    silent: true
