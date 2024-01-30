@@ -23,6 +23,9 @@ import (
 	"github.com/metafeather/tools/devenv/cmd"
 )
 
+// Submodules cannot be embedded directly so zip them up
+//
+//go:generate zip -r embed/stdlib/global/publish.zip embed/stdlib/global/publish
 //go:embed all:embed/stdlib
 var stdlib embed.FS
 

@@ -21,7 +21,8 @@ If everything is working fine: please don't worry or
 file an issue; just ignore this.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		cacheDir := viper.GetString("cache-dir")
-		args = append([]string{"--taskfile", path.Join(cacheDir, "stdlib", "Taskfile.yaml"), "global:doctor"}, args...)
+		taskfile := path.Join(cacheDir, "embed", "stdlib", "Taskfile.yaml")
+		args = append([]string{"--taskfile", taskfile, "global:doctor"}, args...)
 		log.Debug("doctor called:", args)
 		return task.Run(args...)
 	},

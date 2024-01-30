@@ -19,14 +19,21 @@ var initCmd = &cobra.Command{
 		dir := viper.GetString("cache-dir")
 		log.Debug("cache-dir:", dir)
 
+		// Extract stdlib
 		stdlib := internal.NewStdlib(StdlibFS)
 		err := stdlib.Write(dir)
 		cobra.CheckErr(err)
-		log.Debug("stdlib written")
+		log.Debug("stdlib extracted")
 
-		// Prompt to check tools installed
+		// Uncompress submodules
+		err = internal.Unzip(path.Join(dir, "embed", "stdlib", "global", "publish.zip"), path.Join(dir))
+		cobra.CheckErr(err)
+		log.Debug("publish expanded")
+
+		// Run additional init tasks
 		cacheDir := viper.GetString("cache-dir")
-		args = append([]string{"--taskfile", path.Join(cacheDir, "stdlib", "Taskfile.yaml"), "global:init"}, args...)
+		taskfile := path.Join(cacheDir, "embed", "stdlib", "Taskfile.yaml")
+		args = append([]string{"--taskfile", taskfile, "global:init"}, args...)
 		log.Debug("init called:", args)
 		return task.Run(args...)
 	},

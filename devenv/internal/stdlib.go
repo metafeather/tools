@@ -8,7 +8,6 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"strings"
 
 	"github.com/metafeather/tools/devenv/internal/log"
 )
@@ -58,8 +57,6 @@ func (sl *Stdlib) Write(p string) error {
 		if err != nil {
 			return err
 		}
-		// embed/ is the prefix for embedded files, so we need to remove it
-		file = strings.TrimPrefix(file, "embed/")
 		fullpath := path.Join(p, file)
 		err = os.MkdirAll(filepath.Dir(fullpath), 0700)
 		if err != nil {

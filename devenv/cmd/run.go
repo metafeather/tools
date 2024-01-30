@@ -24,8 +24,9 @@ var runCmd = &cobra.Command{
 		// Use global tasks from stdlib
 		global := viper.GetBool("global")
 		cacheDir := viper.GetString("cache-dir")
+		taskfile := path.Join(cacheDir, "embed", "stdlib", "Taskfile.yaml")
 		if global {
-			args = append([]string{"--taskfile", path.Join(cacheDir, "stdlib", "Taskfile.yaml")}, args...)
+			args = append([]string{"--taskfile", taskfile}, args...)
 		}
 
 		log.Debug("run called:", args)

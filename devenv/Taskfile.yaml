@@ -22,6 +22,7 @@ tasks:
     - goreleaser build --clean --snapshot --single-target
 
   run:
+    - go generate ./...
     - go run main.go {{.CLI_ARGS}}
 
   stdlib:
