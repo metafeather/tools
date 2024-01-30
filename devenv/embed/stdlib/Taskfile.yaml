@@ -28,3 +28,6 @@ tasks:
     cmds:
       - env | sort
     dir: "{{.USER_WORKING_DIR}}"
+
+  # TODO(metafeather): check task exists with --dry-run & exit code 0/200
+  # task -s build -n &>/dev/null && task build || echo "build (missing)"

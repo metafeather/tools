@@ -8,6 +8,16 @@ import (
 )
 
 func Run(args ...string) error {
+	// TODO: use pseudoterminal to support color and prompt in go-task
+	// ref: https://www.dolthub.com/blog/2022-11-28-go-os-exec-patterns/
+	// ref: https://ishuah.com/2021/03/10/build-a-terminal-emulator-in-100-lines-of-go/
+	// ref: https://www.kelche.co/blog/go/exec/
+	// ref: https://petersouter.xyz/testing-and-mocking-stdin-in-golang/
+	// ref: https://github.com/Netflix/go-expect
+
+	// ref: https://blog.kowalczyk.info/article/wOYk/advanced-command-execution-in-go-with-osexec.html
+	// path, err := exec.LookPath("ls")
+
 	cmdOptions := run.Options{
 		Buffered:  false,
 		Streaming: true,
