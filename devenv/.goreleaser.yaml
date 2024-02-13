@@ -24,6 +24,9 @@ builds:
       - linux
       # - windows
       - darwin
+    goarch:
+      - amd64
+      - arm64
     # ref: https://goreleaser.com/customization/builds/#reproducible-builds
     mod_timestamp: "{{ .CommitTimestamp }}"
     flags:
