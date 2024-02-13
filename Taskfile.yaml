@@ -4,3 +4,6 @@ tasks:
   default: task --list-all
 
   env: env | sort
+
+  build:
+    - bob build

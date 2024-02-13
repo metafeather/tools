@@ -1,0 +1,22 @@
+# Pin nixpkgs to get reproducable behaviour.
+nixpkgs: https://github.com/NixOS/nixpkgs/archive/refs/tags/23.11.tar.gz
+
+dependencies:
+  - git
+  - go
+  - goreleaser
+  - zip
+
+build:
+  build:
+    input: |-
+      *.go
+    cmd: |-
+      goreleaser build --clean --snapshot --single-target
+    target: |-
+      dist/
+  env:
+    cmd: |-
+      env | sort
+      echo "${PATH//:/\n}"
+    rebuild: always

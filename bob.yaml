@@ -1,0 +1,10 @@
+# Pin nixpkgs to get reproducable behaviour.
+nixpkgs: https://github.com/NixOS/nixpkgs/archive/refs/tags/23.11.tar.gz
+
+import:
+  - devenv
+
+build:
+  build:
+    dependson:
+      - devenv/build
